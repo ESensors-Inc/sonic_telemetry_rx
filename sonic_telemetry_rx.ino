@@ -42,19 +42,30 @@ void loop() {
   if(p)//(!Serial.available())
   {
     raw_pressure = data[1];
-    raw_pressure = (raw_pressure << 8) + data[2];
-    raw_pressure = (raw_pressure << 8) + data[3];
+//    Serial.print(data[1]);
+//    Serial.print(" ");
+//    Serial.print(data[2]);
+//    Serial.print(" ");
+//    Serial.print(data[3]);
+//    Serial.print(" ");
+//    Serial.print(data[4]);
+//    Serial.print(" ");
+//    Serial.println(data[5]);
+    raw_pressure = (raw_pressure << 8) | data[2];
+    raw_pressure = (raw_pressure << 8) | data[3];
     raw_temperature = data[4];
-    raw_temperature = (raw_temperature << 8) + data[5];
+    raw_temperature = (raw_temperature << 8) | data[5];
     pressure = (float)raw_pressure / 4096.00;
     temperature = (float)raw_temperature / 100.00;
-    temperatureF = (temperature*1.8)+32;
+//    temperatureF = (temperature*1.8)+32;
+//    Serial.println(raw_pressure);
+//    Serial.println(raw_temperature);
     Serial.print(pressure);
     Serial.println(" hPa(mbar)");
-//    Serial.print(temperature);
-//    Serial.println(" C");
-    Serial.print(temperatureF);
-    Serial.println(" F");
+    Serial.print(temperature);
+    Serial.println(" C");
+//    Serial.print(temperatureF);
+//    Serial.println(" F");
    for(i=5;i<sizeof(data);i++)
    {    
       Serial.write(data[i]);
